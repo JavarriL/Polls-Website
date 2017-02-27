@@ -1,0 +1,14 @@
+<!-- The title is the question -->
+<h1>{{ question.question_text }}</h1>
+
+<ul>
+  <!-- Loops through the choices to the question -->
+  {% for choice in question.choice_set.all %}
+
+    <!-- Prints each choice and the votes: if it's one vote, it will use vote. If it's more than one, it will print votes -->
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+  {% endfor %}
+</ul>
+
+<!-- Prints a link that allows you to vote again in the details page -->
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>

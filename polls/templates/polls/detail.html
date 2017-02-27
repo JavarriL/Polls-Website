@@ -1,0 +1,26 @@
+<!-- Outputs the question -->
+<h1>{{ question.question_text }}</h1>
+
+<!-- If error_message is true, print the error_message in bold -->
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<!-- Makes a form that sends data to vote function in views.py(action). Use post method to alter data server-side -->
+<form action = "{% url 'polls:vote' question.id %}" method = "post">
+
+<!-- Protects from Cross Site Request Forgeries, where an attacker can trick the users into executing any action -->
+{% csrf_token %}
+
+<!-- loops through the choices -->
+{% for choice in question.choice_set.all %}
+
+    <!-- Makes a radio button with the name choice and the id is choice in question.choice_set.all with a the value of
+    'choice = choice.id' when submitted -->
+    <input type = "radio" name = "choice" id = "choice{{ forloop.counter }}" value = "{{ choice.id }}"/>
+
+    <!-- Makes a label for the id from the input with the choice_text -->
+    <label for = "choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+
+<!-- Creates a submit button named vote -->
+<input type = "submit" value = "Vote" />
+</form>

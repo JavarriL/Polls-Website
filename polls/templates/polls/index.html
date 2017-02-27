@@ -1,0 +1,25 @@
+<!-- Imports static template tag -->
+{% load static %}
+
+<!-- Gets css from static/polls/style.css -->
+<link rel="stylesheet" type = "text/css" href = "{% static 'polls/style.css' %}"/>
+
+<!-- If the code is in the latest_question_list -->
+{% if latest_question_list %}
+
+  <ul>
+
+    <!-- loop through the latest_question_list -->
+    {%for question in latest_question_list %}
+
+    <!-- Print the question with a link that goes to its views.detail page -->
+      <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+
+    {% endfor %}
+  </ul>
+
+<!-- If the code is NOT in the latest_question_list -->
+{% else %}
+
+  <p>No polls are available.</p>
+{% endif %}
